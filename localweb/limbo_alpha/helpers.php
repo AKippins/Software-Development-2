@@ -4,7 +4,7 @@ $debug = true;
 #Shows the records in inventory 
 function show_records($dbc) {
 	# Create a query to get the name and price sorted by price
-	$query = 'SELECT item_id, object, description, size, color, weight, date_found, place_found FROM inventory ORDER BY item_id DESC' ;
+	$query = 'SELECT item_id, object, description, room, owner, finder, date_found, location_id, status FROM inventory ORDER BY item_id DESC' ;
 
 	# Execute the query
 	$results = mysqli_query( $dbc , $query ) ;
@@ -16,30 +16,33 @@ function show_records($dbc) {
   		# But...wait until we know the query succeed before
   		# rendering the table start.
   		echo '<H1>Inventory</H1>' ;
-  		echo '<TABLE>';
+  		echo '<TABLE border=1>';
   		echo '<TR>';
-  		echo '<TH>Item ID</TH>';
+  		echo '<TH align=right>Item ID</TH>';
   		echo '<TH>Object</TH>';
   		echo '<TH>Description</TH>';
-	   	echo '<TH>Size</TH>';
-		  echo '<TH>Color</TH>';
-		  echo '<TH>Weight</TH>';
+	   	echo '<TH>Room</TH>';
+		  echo '<TH>Owner</TH>';
+		  echo '<TH>Finder</TH>';
 		  echo '<TH>Date Found</TH>';
 		  echo '<TH>Place Found</TH>';
+      echo '<TH>Status</TH>';
   		echo '</TR>';
 
   		# For each row result, generate a table row
   		while ( $row = mysqli_fetch_array( $results , MYSQLI_ASSOC ) )
   		{
     		echo '<TR>' ;
-    		echo '<TD>' . $row['item_id'] . '</TD>' ;
+    		echo '<TD align=right>' . $row['item_id'] . '</TD>' ;
     		echo '<TD>' . $row['object'] . '</TD>' ;
     		echo '<TD>' . $row['description'] . '</TD>' ;
-    		echo '<TD>' . $row['size'] . '</TD>' ;
-    		echo '<TD>' . $row['color'] . '</TD>' ;
-    		echo '<TD>' . $row['weight'] . '</TD>' ;
+    		echo '<TD>' . $row['room'] . '</TD>' ;
+    		echo '<TD>' . $row['owner'] . '</TD>' ;
+    		echo '<TD>' . $row['finder'] . '</TD>' ;
     		echo '<TD>' . $row['date_found'] . '</TD>' ;
-			  echo '<TD>' . $row['place_found'] . '</TD>' ;
+			  echo '<TD>' . $row['location_id'] . '</TD>' ;
+        echo '<TD>' . $row['status'] . '</TD>' ;
+
     		echo '</TR>' ;
   		}
 
@@ -51,9 +54,9 @@ function show_records($dbc) {
 	}
 }
 
-function show_link_records($dbc) {
+function show_record($dbc, $item_id) {
   # Create a query to get the name and price sorted by price
-  $query = 'SELECT item_id, object, description, size, color, weight, date_found, place_found FROM inventory ORDER BY item_id ASC' ;
+  $query = 'SELECT * FROM inventory WHERE item_id = ' . $item_id ;
 
   # Execute the query
   $results = mysqli_query( $dbc , $query ) ;
@@ -65,16 +68,69 @@ function show_link_records($dbc) {
       # But...wait until we know the query succeed before
       # rendering the table start.
       echo '<H1>Inventory</H1>' ;
-      echo '<TABLE cellspacing=10>';
+      echo '<TABLE border=1>';
       echo '<TR>';
-      echo '<TH>Item ID</TH>';
+      echo '<TH align=right>Item ID</TH>';
       echo '<TH>Object</TH>';
       echo '<TH>Description</TH>';
-      echo '<TH>Size</TH>';
-      echo '<TH>Color</TH>';
-      echo '<TH>Weight</TH>';
+      echo '<TH>Room</TH>';
+      echo '<TH>Owner</TH>';
+      echo '<TH>Finder</TH>';
       echo '<TH>Date Found</TH>';
       echo '<TH>Place Found</TH>';
+      echo '<TH>Status</TH>';
+      echo '</TR>';
+
+      # For each row result, generate a table row
+      while ( $row = mysqli_fetch_array( $results , MYSQLI_ASSOC ) )
+      {
+        echo '<TR>' ;
+        echo '<TD align=right>' . $row['item_id'] . '</TD>' ;
+        echo '<TD>' . $row['object'] . '</TD>' ;
+        echo '<TD>' . $row['description'] . '</TD>' ;
+        echo '<TD>' . $row['room'] . '</TD>' ;
+        echo '<TD>' . $row['owner'] . '</TD>' ;
+        echo '<TD>' . $row['finder'] . '</TD>' ;
+        echo '<TD>' . $row['date_found'] . '</TD>' ;
+        echo '<TD>' . $row['location_id'] . '</TD>' ;
+        echo '<TD>' . $row['status'] . '</TD>' ;
+
+        echo '</TR>' ;
+      }
+
+      # End the table
+      echo '</TABLE>';
+
+      # Free up the results in memory
+      mysqli_free_result( $results ) ;
+  }
+}
+
+function show_link_records($dbc) {
+  # Create a query to get the name and price sorted by price
+  $query = 'SELECT item_id, object, description, room, owner, finder, date_found, location_id, status FROM inventory ORDER BY item_id ASC' ;
+
+  # Execute the query
+  $results = mysqli_query( $dbc , $query ) ;
+  check_results($results) ;
+
+  # Show results
+  if( $results )
+  {
+      # But...wait until we know the query succeed before
+      # rendering the table start.
+      echo '<H1>Inventory</H1>' ;
+      echo '<TABLE border=1>';
+      echo '<TR>';
+      echo '<TH align=right>Item ID</TH>';
+      echo '<TH>Object</TH>';
+      echo '<TH>Description</TH>';
+      echo '<TH>Room</TH>';
+      echo '<TH>Owner</TH>';
+      echo '<TH>Finder</TH>';
+      echo '<TH>Date Found</TH>';
+      echo '<TH>Place Found</TH>';
+      echo '<TH>Status</TH>';
       echo '</TR>';
 
       # For each row result, generate a table row
@@ -85,11 +141,12 @@ function show_link_records($dbc) {
         echo '<TD align=right>' . $alink . '</TD>' ;
         echo '<TD>' . $row['object'] . '</TD>' ;
         echo '<TD>' . $row['description'] . '</TD>' ;
-        echo '<TD>' . $row['size'] . '</TD>' ;
-        echo '<TD>' . $row['color'] . '</TD>' ;
-        echo '<TD>' . $row['weight'] . '</TD>' ;
+        echo '<TD>' . $row['room'] . '</TD>' ;
+        echo '<TD>' . $row['owner'] . '</TD>' ;
+        echo '<TD>' . $row['finder'] . '</TD>' ;
         echo '<TD>' . $row['date_found'] . '</TD>' ;
-        echo '<TD>' . $row['place_found'] . '</TD>' ;
+        echo '<TD>' . $row['location_id'] . '</TD>' ;
+        echo '<TD>' . $row['status'] . '</TD>' ;
         echo '</TR>' ;
       }
 
@@ -102,8 +159,8 @@ function show_link_records($dbc) {
 }
 
 # Inserts a record into the prints table
-function insert_record($dbc, $object, $description, $size, $color, $weight, $date_found, $place_found) {
-  $query = 'INSERT INTO inventory(object, description, size, color, weight, date_found, place_found) VALUES ("' . $object . '", "'. $description . '", "' . $size . '", "'. $color . '", "' . $weight . '", "' . $date_found . '", "' . $place_found . '")';
+function insert_record($dbc, $object, $description, $room, $owner, $finder, $date_found, $location_id, $status) {
+  $query = 'INSERT INTO inventory(object, description, room, owner, finder, date_found, location_id, status) VALUES ("' . $object . '", "'. $description . '", "' . $room . '", "'. $owner . '", "' . $finder . '", "' . $date_found . '", "' . $location_id . '", "' . $status . '")';
   show_query($query);
  
   $results = mysqli_query($dbc,$query) ;

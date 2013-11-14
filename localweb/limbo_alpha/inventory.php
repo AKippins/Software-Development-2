@@ -21,40 +21,30 @@ if ($_SERVER[ 'REQUEST_METHOD' ] == 'POST') {
 	
 	$description = $_POST['description'] ;
 
-	$size = $_POST['size'] ;
+	$room = $_POST['room'] ;
 
-	$color = $_POST['color'] ;
+	$owner = $_POST['owner'] ;
 
-	$weight = $_POST['weight'] ;
+	$finder = $_POST['finder'] ;
 
 	$date_found = $_POST['date_found'] ;
 
-	$place_found = $_POST['place_found'] ;
+	$location_id = $_POST['location_id'] ;
+
+	$status = $_POST['status'] ;
 	
 
     if (!valid_name($object)){
 		echo '<p style="color:red;font-size:16px;">That is not a valid Object!!!</p>';
 		}
-	else if (!valid_name($description)){
-		echo '<p style="color:red;font-size:16px;">That is not a valid Description!!!</p>';
-		}
-	else if (!valid_name($size)){
-		echo '<p style="color:red;font-size:16px;">That is not a valid Size!!!</p>';
-		}
-	else if (!valid_name($color)){
-		echo '<p style="color:red;font-size:16px;">That is not a valid Color!!!</p>';
-		}
-	else if (!valid_name($weight)){
-		echo '<p style="color:red;font-size:16px;">That is not a valid Weight!!!</p>';
-		}
 	else if (!valid_name($date_found)){
 		echo '<p style="color:red;font-size:16px;">That is not a valid Date!!!</p>';
 		}
-	else if (!valid_name($place_found)){
+	else if (!valid_number($location_id)){
 		echo '<p style="color:red;font-size:16px;">That is not a valid Place!!!</p>';
 		}
 	else
-	  $result = insert_record($dbc, $object, $description, $size, $color, $weight, $date_found, $place_found) ;
+	  $result = insert_record($dbc, $object, $description, $room, $owner, $finder, $date_found, $location_id, $status) ;
 
       #echo "<p>Added " . $result . " new print(s) ". $name . " @ $" . $price . " .</p>" ;
     
@@ -70,6 +60,8 @@ if ($_SERVER[ 'REQUEST_METHOD' ] == 'POST') {
       echo '<p>Please input a inventory ID, Object, Date Found and Place Found!</p>' ;
 	}
 
+echo '<h1>Welcome To Limbo</h1>';
+echo '<h3>Whether you\'ve lost or found something, You\'re in the right place!!!</h3>';
 
 # Show the records
 show_link_records($dbc);
@@ -80,14 +72,51 @@ mysqli_close( $dbc ) ;
 
 <!-- Display body section with sticky form. -->
 <form action="inventory.php" method="POST">
-<!--<p>Item ID: <input type="int" name="item_id" value="<?php #if (isset($_POST['item_id'])) echo $_POST['item_id']; ?>"> </p>-->
-<p>Object: <input type="text" name="object" value="<?php if (isset($_POST['object'])) echo $_POST['object']; ?>"></p>
-<p>Description: <input type="text" name="description" value="<?php if (isset($_POST['description'])) echo $_POST['description']; ?>"></p>
-<p>Size: <input type="text" name="size" value="<?php if (isset($_POST['size'])) echo $_POST['size']; ?>"></p>
-<p>Color: <input type="text" name="color" value="<?php if (isset($_POST['color'])) echo $_POST['color']; ?>"></p>
-<p>Weight: <input type="text" name="weight" value="<?php if (isset($_POST['weight'])) echo $_POST['weight']; ?>"></p>
-<p>Date Found: <input type="date" name="date_found" value="<?php if (isset($_POST['date_found'])) echo $_POST['date_found']; ?>"></p>
-<p>Place Found: <input type="text" name="place_found" value="<?php if (isset($_POST['place_found'])) echo $_POST['description']; ?>"></p>
+</br>
+<table border=1>
+	<tr><td><p>Object: </td> <td><input type="text" name="object" value="<?php if (isset($_POST['object'])) echo $_POST['object']; ?>"></p></td></tr>
+	<tr><td><p>Description: </td> <td><input type="text" name="description" value="<?php if (isset($_POST['description'])) echo $_POST['description']; ?>"></p></td></tr>
+	<tr><td><p>Room: </td> <td><input type="text" name="room" value="<?php if (isset($_POST['room'])) echo $_POST['room']; ?>"></p></td></tr>
+	<tr><td><p>Owner: </td> <td><input type="text" name="owner" value="<?php if (isset($_POST['owner'])) echo $_POST['owner']; ?>"></p></td></tr>
+	<tr><td><p>Finder: </td> <td><input type="text" name="finder" value="<?php if (isset($_POST['finder'])) echo $_POST['finder']; ?>"></p></td></tr>
+	<tr><td><p>Date Found: </td> <td><input type="date" name="date_found" value="<?php if (isset($_POST['date_found'])) echo $_POST['date_found']; ?>"></p></td></tr>
+	<tr><td><p>Place Found: </td> <td><input type= "">
+									<!--<?php /*
+										if (isset($_POST['location_id']))
+										$query = 'SELECT location_id, location_name FROM locations ORDER BY location_id DESC' ;
+
+										# Execute the query
+										$results = mysqli_query( $dbc , $query ) ;
+										check_results($results) ;
+
+										if($results){
+											echo '<select>';
+											while ( $choice = mysql_fetch_array( $results, MYSQLI_ASSOC)) {
+												echo '<option value="' . $choice['location_id'] . '">' . $choice['location_name'] . '</option>';
+											}
+
+											echo '</select>';
+
+											# Free up the results in memory
+										  	mysqli_free_result( $results ) ;
+
+										}
+
+										# Checks the query results as a debugging aid
+										function check_results($results) {
+										  global $dbc;
+
+										  if($results != true)
+										    echo '<p>SQL ERROR = ' . mysqli_error( $dbc ) . '</p>'  ;
+									*/?>-->
+									</p></td></tr>
+	<tr><td><p>Status:</td> <td><select>
+									<option value="">Select the status of the item</option>
+									<option value="<?php if (isset($_POST['status'])) echo $_POST['status']; ?>">Found</option>
+									<option value="<?php if (isset($_POST['status'])) echo $_POST['status']; ?>">Lost</option>
+									<option value="<?php if (isset($_POST['status'])) echo $_POST['status']; ?>">Claimed</option>
+								</select>
+</table>
 <p><input type="submit"></p>
 </form>
 

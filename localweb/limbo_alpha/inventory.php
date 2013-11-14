@@ -61,9 +61,9 @@ if ($_SERVER[ 'REQUEST_METHOD' ] == 'POST') {
 	}
 	else if ($_SERVER['REQUEST_METHOD'] == 'GET')
 	{
-		if(isset($_GET['id']))
+		if(isset($_GET['item_id']))
 		{
-			show_record($dbc, $_GET['id']);
+			show_record($dbc, $_GET['item_id']);
 		}
 	}
 	else{
@@ -72,7 +72,7 @@ if ($_SERVER[ 'REQUEST_METHOD' ] == 'POST') {
 
 
 # Show the records
-#show_link_records($dbc);
+show_link_records($dbc);
 
 # Close the connection
 mysqli_close( $dbc ) ;

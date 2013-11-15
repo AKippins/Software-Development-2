@@ -9,10 +9,10 @@ use limbo_db ;
 drop table if exists locations;
 create table if not exists locations
 (
-location_id    int        primary key   auto_increment,
-create_date    datetime   not null,
-update_date    datetime   not null,
-location_name  text       not null
+location_id    int    primary key   auto_increment,
+create_date    date   not null,
+update_date    date   not null,
+location_name  text   not null
 );
 
 

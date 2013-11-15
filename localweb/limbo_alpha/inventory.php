@@ -80,9 +80,11 @@ mysqli_close( $dbc ) ;
 	<tr><td><p>Owner: </td> <td><input type="text" name="owner" value="<?php if (isset($_POST['owner'])) echo $_POST['owner']; ?>"></p></td></tr>
 	<tr><td><p>Finder: </td> <td><input type="text" name="finder" value="<?php if (isset($_POST['finder'])) echo $_POST['finder']; ?>"></p></td></tr>
 	<tr><td><p>Date Found: </td> <td><input type="date" name="date_found" value="<?php if (isset($_POST['date_found'])) echo $_POST['date_found']; ?>"></p></td></tr>
-	<tr><td><p>Place Found: </td> <td><input type= "">
-									<!--<?php /*
-										if (isset($_POST['location_id']))
+	<tr><td><p>Place Found: </td> <td>
+									<?php 
+										# Connect to MySQL server and the database
+										require( 'limbo_alpha/connect_db.php' ) ;
+
 										$query = 'SELECT location_id, location_name FROM locations ORDER BY location_id DESC' ;
 
 										# Execute the query
@@ -90,7 +92,7 @@ mysqli_close( $dbc ) ;
 										check_results($results) ;
 
 										if($results){
-											echo '<select>';
+											echo '<select required=1 name="location_id">';
 											while ( $choice = mysql_fetch_array( $results, MYSQLI_ASSOC)) {
 												echo '<option value="' . $choice['location_id'] . '">' . $choice['location_name'] . '</option>';
 											}
@@ -108,13 +110,13 @@ mysqli_close( $dbc ) ;
 
 										  if($results != true)
 										    echo '<p>SQL ERROR = ' . mysqli_error( $dbc ) . '</p>'  ;
-									*/?>-->
+									?>
 									</p></td></tr>
-	<tr><td><p>Status:</td> <td><select>
+	<tr><td><p>Status:</td> <td><select required=1 name='status'>
 									<option value="">Select the status of the item</option>
-									<option value="<?php if (isset($_POST['status'])) echo $_POST['status']; ?>">Found</option>
-									<option value="<?php if (isset($_POST['status'])) echo $_POST['status']; ?>">Lost</option>
-									<option value="<?php if (isset($_POST['status'])) echo $_POST['status']; ?>">Claimed</option>
+									<option value="'found'">Found</option>
+									<option value="'lost'">Lost</option>
+									<option value="'claimed'">Claimed</option>
 								</select>
 </table>
 <p><input type="submit"></p>

@@ -4,7 +4,7 @@ $debug = true;
 #Shows the records in inventory 
 function show_records($dbc) {
 	# Create a query to get the name and price sorted by price
-	$query = 'SELECT item_id, object, description, room, owner, finder, date_found, location_id, status FROM inventory ORDER BY item_id ASC' ;
+	$query = 'SELECT item_id, object, description, room, owner, date_found, location_id, status FROM inventory ORDER BY item_id ASC' ;
 
 	# Execute the query
 	$results = mysqli_query( $dbc , $query ) ;
@@ -15,7 +15,7 @@ function show_records($dbc) {
 	{
   		# But...wait until we know the query succeed before
   		# rendering the table start.
-  		echo '<H1>Latest Entries</H1>' ;
+  		echo '<H1>Lost Items</H1>' ;
   		echo '<TABLE border=1>';
   		echo '<TR>';
   		echo '<TH align=right>Item ID</TH>';
@@ -23,9 +23,8 @@ function show_records($dbc) {
   		echo '<TH>Description</TH>';
 	   	echo '<TH>Room</TH>';
 		  echo '<TH>Owner</TH>';
-		  echo '<TH>Finder</TH>';
-		  echo '<TH>Date Lost/Found</TH>';
-		  echo '<TH>Place Lost/Found</TH>';
+		  echo '<TH>Date Lost</TH>';
+		  echo '<TH>Place Lost</TH>';
       echo '<TH>Status</TH>';
   		echo '</TR>';
 
@@ -38,7 +37,6 @@ function show_records($dbc) {
     		echo '<TD>' . $row['description'] . '</TD>' ;
     		echo '<TD>' . $row['room'] . '</TD>' ;
     		echo '<TD>' . $row['owner'] . '</TD>' ;
-    		echo '<TD>' . $row['finder'] . '</TD>' ;
     		echo '<TD>' . $row['date_found'] . '</TD>' ;
 			  echo '<TD>' . $row['location_id'] . '</TD>' ;
         echo '<TD>' . $row['status'] . '</TD>' ;
@@ -75,7 +73,6 @@ function show_record($dbc, $item_id) {
       echo '<TH>Description</TH>';
       echo '<TH>Room</TH>';
       echo '<TH>Owner</TH>';
-      echo '<TH>Finder</TH>';
       echo '<TH>Date Lost/Found</TH>';
       echo '<TH>Place Lost/Found</TH>';
       echo '<TH>Status</TH>';
@@ -90,7 +87,6 @@ function show_record($dbc, $item_id) {
         echo '<TD>' . $row['description'] . '</TD>' ;
         echo '<TD>' . $row['room'] . '</TD>' ;
         echo '<TD>' . $row['owner'] . '</TD>' ;
-        echo '<TD>' . $row['finder'] . '</TD>' ;
         echo '<TD>' . $row['date_found'] . '</TD>' ;
         echo '<TD>' . $row['location_id'] . '</TD>' ;
         echo '<TD>' . $row['status'] . '</TD>' ;
@@ -108,7 +104,7 @@ function show_record($dbc, $item_id) {
 
 function show_link_records($dbc) {
   # Create a query to get the name and price sorted by price
-  $query = 'SELECT item_id, object, description, room, owner, finder, date_found, location_id, status FROM inventory WHERE (status="lost") or (status="found") ORDER BY item_id ASC' ;
+  $query = 'SELECT item_id, object, description, room, owner, date_found, location_id, status FROM inventory WHERE status="found" ORDER BY item_id ASC' ;
 
   # Execute the query
   $results = mysqli_query( $dbc , $query ) ;
@@ -119,8 +115,8 @@ function show_link_records($dbc) {
   {
       # But...wait until we know the query succeed before
       # rendering the table start.
-      echo '<H2>These Are The Latest Entries Into Our Database...</H2>' ;
-      echo '<H3>If You\'ve Lost Or Found Any Of These Items Let Us Know So We Can Help You Out!</H3>';
+      echo '<H2>These Are Some Items That Have Been Recently Found.....</H2>' ;
+      echo '<H3>Are Any Of These What You\'re Looking For???</H3>' ;
       echo '<TABLE border=1>';
       echo '<TR>';
       echo '<TH align=right>Item ID</TH>';
@@ -128,7 +124,6 @@ function show_link_records($dbc) {
       echo '<TH>Description</TH>';
       echo '<TH>Room</TH>';
       echo '<TH>Owner</TH>';
-      echo '<TH>Finder</TH>';
       echo '<TH>Date Lost/Found</TH>';
       echo '<TH>Place Lost/Found</TH>';
       echo '<TH>Status</TH>';
@@ -137,14 +132,13 @@ function show_link_records($dbc) {
       # For each row result, generate a table row
       while ( $row = mysqli_fetch_array( $results , MYSQLI_ASSOC ) )
       {
-        $alink = '<A HREF=inventory.php?item_id=' . $row['item_id'] . '>' . $row['item_id'] . '</A>' ;
+        $alink = '<A HREF=inventory_lost.php?item_id=' . $row['item_id'] . '>' . $row['item_id'] . '</A>' ;
         echo '<TR>' ;
         echo '<TD align=right>' . $alink . '</TD>' ;
         echo '<TD>' . $row['object'] . '</TD>' ;
         echo '<TD>' . $row['description'] . '</TD>' ;
         echo '<TD>' . $row['room'] . '</TD>' ;
         echo '<TD>' . $row['owner'] . '</TD>' ;
-        echo '<TD>' . $row['finder'] . '</TD>' ;
         echo '<TD>' . $row['date_found'] . '</TD>' ;
         echo '<TD>' . $row['location_id'] . '</TD>' ;
         echo '<TD>' . $row['status'] . '</TD>' ;

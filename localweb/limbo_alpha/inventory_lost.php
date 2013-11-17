@@ -12,7 +12,7 @@
 require( 'limbo_alpha/connect_db.php' ) ;
 
 # Includes these helper functions
-require( 'limbo_alpha/helpers.php' ) ;
+require( 'limbo_alpha/helpers_lost.php' ) ;
 
 if ($_SERVER[ 'REQUEST_METHOD' ] == 'POST') {
 	#$item_id = $_POST['item_id'] ;
@@ -62,7 +62,7 @@ if ($_SERVER[ 'REQUEST_METHOD' ] == 'POST') {
 
 echo '<h1>Welcome To Limbo</h1>';
 echo '<h3>Whether you\'ve lost or found something, You\'re in the right place!!!</h3>';
-echo '<a href="inventory_lost.php">Lost Something</a>';
+echo '<a href="inventory.php">Quick Links</a>';
 echo '<p>     </p>';
 echo '<a href="">Admin Login</a>';
 echo '<p>     </p>';
@@ -71,19 +71,23 @@ echo '<a href="inventory_found.php">Found Something</a>';
 # Show the records
 show_link_records($dbc);
 
+echo '</br>';
+echo '<H2>No Matter What You\'ve Lost, We\'ll Help You Find It!</H2>';
+echo '<H3>Enter Some Information About Your Item Here So We Can Keep An Eye Out For It!</H3>';
+
 # Close the connection
 mysqli_close( $dbc ) ;
 ?>
 
 <!-- Display body section with sticky form. -->
-<form action="inventory.php" method="POST">
+<form action="inventory_lost.php" method="POST">
 </br>
 <table border=1>
 	<tr><td><p>Object: </td> <td><input type="text" name="object" value="<?php if (isset($_POST['object'])) echo $_POST['object']; ?>"></p></td></tr>
 	<tr><td><p>Description: </td> <td><input type="text" name="description" value="<?php if (isset($_POST['description'])) echo $_POST['description']; ?>"></p></td></tr>
 	<tr><td><p>Room: </td> <td><input type="text" name="room" value="<?php if (isset($_POST['room'])) echo $_POST['room']; ?>"></p></td></tr>
 	<tr><td><p>Owner: </td> <td><input type="text" name="owner" value="<?php if (isset($_POST['owner'])) echo $_POST['owner']; ?>"></p></td></tr>
-	<tr><td><p>Finder: </td> <td><input type="text" name="finder" value="<?php if (isset($_POST['finder'])) echo $_POST['finder']; ?>"></p></td></tr>
+	<!--<tr><td><p>Finder: </td> <td><input type="text" name="finder" value="<?php/* if (isset($_POST['finder'])) echo $_POST['finder']; */?>"></p></td></tr>-->
 	<tr><td><p>Date Lost/Found: </td> <td><input type="date" name="date_found" value="<?php if (isset($_POST['date_found'])) echo $_POST['date_found']; ?>"></p></td></tr>
 	<tr><td><p>Place Lost/Found: </td> <td><select required=1 name='location_id'>
 									  	<option value="">Select the location that the item was found</option>

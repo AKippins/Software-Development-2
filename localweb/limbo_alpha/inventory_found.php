@@ -9,10 +9,10 @@
 
 <?php 
 # Connect to MySQL server and the database
-require( 'limbo_alpha/connect_db.php' ) ;
+require( 'connect_db.php' ) ;
 
 # Includes these helper functions
-require( 'limbo_alpha/helpers_found.php' ) ;
+require( 'helpers_found.php' ) ;
 
 if ($_SERVER[ 'REQUEST_METHOD' ] == 'POST') {
 	#$item_id = $_POST['item_id'] ;

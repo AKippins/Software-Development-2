@@ -250,7 +250,7 @@ function show_admin_records($dbc) {
         echo '<TD>' . $row['date_found'] . '</TD>' ;
         echo '<TD>' . $row['location_id'] . '</TD>' ;
         echo '<TD>' . $row['status'] . '</TD>' ;
-        echo '<TD>' . '<a href=\'/deleteentry.php\'>Delete</a>' . '</TD>' ;
+        echo '<TD><a href=\'deleteentry.php?item_id=' . $row['item_id'] . '\'>Delete</a></TD>' ;
         echo '</TR>' ;
       }
 

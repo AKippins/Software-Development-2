@@ -23,7 +23,7 @@ if ($_SERVER[ 'REQUEST_METHOD' ] == 'POST') {
 
 	$room = $_POST['room'] ;
 
-	$owner = $_POST['owner'] ;
+	$owner = null ;
 
 	$finder = $_POST['finder'] ;
 

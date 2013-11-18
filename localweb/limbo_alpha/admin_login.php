@@ -9,6 +9,12 @@
 
 <h1>Admin Login page</h1>
 </br>
+<a href="inventory_lost.php">Lost Something</a>
+<p>     </p>
+<a href="inventory.php">Quick Links</a>
+<p>     </p>
+<a href="inventory_found.php">Found Something</a>
+
 <form action="admin.php" method="POST">
 <table cellspacing = 15>
 	<tr><td>Username: </td> <td><input type="text" name="username" value="<?php if (isset($_POST['username'])) echo $_POST['username']; ?>"></td></tr>

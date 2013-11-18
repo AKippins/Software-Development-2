@@ -9,10 +9,10 @@
 
 <?php 
 # Connect to MySQL server and the database
-require( 'connect_db.php' ) ;
+require( 'limbo_alpha/connect_db.php' ) ;
 
 # Includes these helper functions
-require( 'helpers.php' ) ;
+require( 'limbo_alpha/helpers.php' ) ;
 
 if ($_SERVER[ 'REQUEST_METHOD' ] == 'POST') {
 
@@ -32,7 +32,7 @@ if ($_SERVER[ 'REQUEST_METHOD' ] == 'POST') {
 }
 else
 {
- 	header("Location: http://www.127.0.0.1:8888/limbo_alpha/admin_login.php"); /* Redirect browser */
+ 	header("Location: admin_login.php"); /* Redirect browser */
 	exit();
 }
 ?>

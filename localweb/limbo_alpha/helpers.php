@@ -281,6 +281,11 @@ function adminlogin($dbc, $username, $password)
       else
       {
         echo '<h1>Admin page</h1>';
+        echo '<a href="inventory_lost.php">Lost Something</a>';
+        echo '<p>     </p>';
+        echo '<a href="inventory.php">Quick Links</a>';
+        echo '<p>     </p>';
+        echo '<a href="inventory_found.php">Found Something</a>';
         show_admin_records($dbc);
       }
     }

@@ -9,10 +9,10 @@
 
 <?php 
 # Connect to MySQL server and the database
-require( 'connect_db.php' ) ;
+require( 'limbo_alpha/connect_db.php' ) ;
 
 # Includes these helper functions
-require( 'helpers_found.php' ) ;
+require( 'limbo_alpha/helpers_found.php' ) ;
 
 if ($_SERVER[ 'REQUEST_METHOD' ] == 'POST') {
 	#$item_id = $_POST['item_id'] ;
@@ -64,7 +64,7 @@ echo '<h1>Welcome To Limbo</h1>';
 echo '<h3>Whether you\'ve lost or found something, You\'re in the right place!!!</h3>';
 echo '<a href="inventory_lost.php">Lost Something</a>';
 echo '<p>     </p>';
-echo '<a href="">Admin Login</a>';
+echo '<a href="admin_login.php">Admin Login</a>';
 echo '<p>     </p>';
 echo '<a href="inventory.php">Quick Links</a>';
 

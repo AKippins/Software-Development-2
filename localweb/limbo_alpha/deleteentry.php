@@ -10,11 +10,11 @@
 <h1>Delete entry page</h1>
 </br>
 <?php
-require( 'connect_db.php' ) ;
-require( 'helpers.php' ) ;
+require( 'limbo_alpha/connect_db.php' ) ;
+require( 'limbo_alpha/helpers.php' ) ;
 $query = 'DELETE FROM inventory WHERE item_id = ' . '\'' . $_GET["item_id"] . '\'';
 $results = mysqli_query($dbc,$query) ;
 check_results($results) ;
-header( 'Location: 127.0.0.1:8888/limbo_alpha/admin.php' ) ;
+header( 'Location: 127.0.0.1/limbo_alpha/admin.php' ) ;
 ?>
 </body>

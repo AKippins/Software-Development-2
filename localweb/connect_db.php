@@ -1,7 +1,7 @@
-<?php # CONNECT TO MySQL DATABASE.
+<?php #connect to limbo_db
 
-# Connect  on 'localhost' for user 'mike' with password 'easysteps' to database 'site_db'.
-$dbc = @mysqli_connect ( 'localhost', 'mike', 'easysteps', 'site_db' )
+#setting a variable to connect to the database limbo_db with the proper login constraints
+$dbc = @mysqli_connect("localhost", 'root', '', 'limbo_db')
 
 # Otherwise fail gracefully and explain the error. 
 OR die ( mysqli_connect_error() ) ;

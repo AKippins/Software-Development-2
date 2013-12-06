@@ -12,7 +12,7 @@
 require( 'connect_db.php' ) ;
 
 # Includes these helper functions
-require( 'helpers_lost.php' ) ;
+require( 'helpers.php' ) ;
 
 if ($_SERVER[ 'REQUEST_METHOD' ] == 'POST') {
 	#$item_id = $_POST['item_id'] ;
@@ -60,20 +60,9 @@ if ($_SERVER[ 'REQUEST_METHOD' ] == 'POST') {
       echo '<p>Please input a inventory ID, Object, Date Lost/Found and Place Lost/Found!</p>' ;
 	}
 
-echo '<h1>Welcome To Limbo</h1>';
-echo '<h3>Whether you\'ve lost or found something, You\'re in the right place!!!</h3>';
-echo '<a href="inventory.php">Quick Links</a>';
-echo '<p>     </p>';
-echo '<a href="">Admin Login</a>';
-echo '<p>     </p>';
-echo '<a href="inventory_found.php">Found Something</a>';
-
-# Show the records
-show_link_records($dbc);
-
-echo '</br>';
-echo '<H2>No Matter What You\'ve Lost, We\'ll Help You Find It!</H2>';
-echo '<H3>Enter Some Information About Your Item Here So We Can Keep An Eye Out For It!</H3>';
+show_header();
+show_link_records($dbc, 'found');
+echo '<H4>Enter Some Information About Your Item Here So We Can Keep An Eye Out For It!</H4>';
 
 # Close the connection
 mysqli_close( $dbc ) ;
@@ -81,7 +70,6 @@ mysqli_close( $dbc ) ;
 
 <!-- Display body section with sticky form. -->
 <form action="inventory_lost.php" method="POST">
-</br>
 <table border=1>
 	<tr><td><p>Object: </td> <td><input type="text" name="object" value="<?php if (isset($_POST['object'])) echo $_POST['object']; ?>"></p></td></tr>
 	<tr><td><p>Description: </td> <td><input type="text" name="description" value="<?php if (isset($_POST['description'])) echo $_POST['description']; ?>"></p></td></tr>

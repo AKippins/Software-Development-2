@@ -60,20 +60,10 @@ if ($_SERVER[ 'REQUEST_METHOD' ] == 'POST') {
       echo '<p>Please input a inventory ID, Object, Date Lost/Found and Place Lost/Found!</p>' ;
 	}
 
-echo '<h1>Welcome To Limbo</h1>';
-echo '<h3>Whether you\'ve lost or found something, You\'re in the right place!!!</h3>';
-echo '<a href="inventory_lost.php">Lost Something</a>';
-echo '<p>     </p>';
-echo '<a href="">Admin Login</a>';
-echo '<p>     </p>';
-echo '<a href="inventory.php">Quick Links</a>';
-
-# Show the records
-show_link_records($dbc);
-
+show_header();
+show_link_records($dbc, 'lost');
 echo '</br>';
-echo '<H2>Whatever You\'ve Found, We\'ll Help You Return It To It\'s Rightful Owner!</H2>';
-echo '<H3>Enter Some Infromation About The Item Here So We Can Help You Get It To It\'s Owner!</H3>';
+echo '<H4>Enter Some Information About The Item Here So We Can Help You Get It To It\'s Owner!</H4>';
 
 # Close the connection
 mysqli_close( $dbc ) ;

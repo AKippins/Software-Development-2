@@ -8,6 +8,7 @@
 <body>
 
 <?php 
+require('connect_db.php');
 
 # Includes these helper functions
 require( 'helpers.php' ) ;
@@ -24,7 +25,12 @@ if ($_SERVER[ 'REQUEST_METHOD' ] == 'POST') {
 		}
 	else
 		{
-		adminlogin($dbc, $username, $password);
+		if (adminlogin($dbc, $username, $password))
+		{
+			echo '<h1>Admin page</h1>';
+			show_admin_header($dbc);
+			show_admin_records($dbc);
+		}
 		}
     
 }

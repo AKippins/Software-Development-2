@@ -10,6 +10,7 @@
 <h1>Delete entry page</h1>
 </br>
 <?php
+require('connect_db.php');
 require( 'helpers.php' ) ;
 $query = 'DELETE FROM inventory WHERE item_id = ' . '\'' . $_GET["item_id"] . '\'';
 $results = mysqli_query($dbc,$query) ;

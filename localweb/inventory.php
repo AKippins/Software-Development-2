@@ -57,16 +57,9 @@ if ($_SERVER[ 'REQUEST_METHOD' ] == 'POST') {
       echo '<p>Please input a inventory ID, Object, Date Lost/Found and Place Lost/Found!</p>' ;
 	}
 
-echo '<h1>Welcome To Limbo</h1>';
-echo '<h3>Whether you\'ve lost or found something, You\'re in the right place!</h3>';
-echo '<table cellspacing = 10>';
-echo '<th><a href="inventory_lost.php">Lost Something</a></th>';
-echo '<th><a href="">Admin Login</a></th>';
-echo '<th><a href="inventory_found.php">Found Something</a></th>';
-echo '</table>';
+show_header();
+show_link_records($dbc, 'all');
 
-# Show the records
-show_link_records($dbc);
 
 # Close the connection
 mysqli_close( $dbc ) ;

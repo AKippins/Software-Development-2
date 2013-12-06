@@ -7,7 +7,7 @@
 </head>
 <body>
 
-<h1>Delete Admin page</h1>
+<h1>Deleted Admin</h1>
 </br>
 <?php
 require('connect_db.php');

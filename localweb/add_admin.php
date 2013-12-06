@@ -7,14 +7,15 @@
 </head>
 <body>
 
-<h1>Deleted entry</h1>
+<h1>Created new Admin</h1>
 </br>
 <?php
 require('connect_db.php');
 require( 'helpers.php' ) ;
-$query = 'DELETE FROM inventory WHERE item_id = ' . '\'' . $_GET["item_id"] . '\'';
+$query = 'INSERT INTO users(username, pass) VALUES ( \'' . $_POST["username"] . '\',\'' . $_POST["pass"] . '\')';
 $results = mysqli_query($dbc,$query) ;
 check_results($dbc,$results) ;
+
 
 $query = 'SELECT user_id, pass, username FROM users WHERE user_id = 1';
 $results = mysqli_query($dbc,$query) ;

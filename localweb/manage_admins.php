@@ -30,7 +30,12 @@ if ($_SERVER[ 'REQUEST_METHOD' ] == 'POST') {
 			echo '<h1>Admin page</h1>';
 			show_admin_header($dbc);
 			show_admins($dbc);
-			echo '<br>Add a new Admin here: '
+			echo '<br>Add a new Admin here:';
+			echo '<form action="add_admin.php" method="POST">';
+     		echo 'Username: <input type="textbox" name="username"><br>';
+     		echo 'Password: <input type="password" name="pass"><br>';
+      		echo '<input type="submit"></input>';
+      		echo '</form>';
 		}
 		}
     

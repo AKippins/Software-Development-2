@@ -29,7 +29,8 @@ if ($_SERVER[ 'REQUEST_METHOD' ] == 'POST') {
 		{
 			echo '<h1>Admin page</h1>';
 			show_admin_header($dbc);
-			show_admin_records($dbc);
+			show_admins($dbc);
+			echo '<br>Add a new Admin here: '
 		}
 		}
     

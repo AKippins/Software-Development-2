@@ -1,0 +1,26 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Limbo</title>
+<!--Aaron Kippins & Zack Meath-->
+</head>
+<body>
+
+<h1>Change Status</h1>
+</br>
+<?php
+require('connect_db.php');
+require( 'helpers.php' ) ;
+
+if ($_SERVER[ 'REQUEST_METHOD' ] == 'GET') {
+	show_admin_header($dbc);
+    $id = $_GET['id'] ;
+
+    echo '<TR>' ;
+    echo '<TD><a href="delete_admin.php?id='.$row['user_id'] . '">' . $row['username'] . '</a></TD>' ;
+    echo '</TR>' ;
+
+    echo '<TR>' ;
+    echo '<TD><a href="pass_admin.php?id='.$row['user_id'] . '">' . $row['username'] . '</a></TD>' ;
+    echo '</TR>' ;

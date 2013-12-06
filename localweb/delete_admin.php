@@ -7,14 +7,15 @@
 </head>
 <body>
 
-<h1>Delete entry page</h1>
+<h1>Delete Admin page</h1>
 </br>
 <?php
 require('connect_db.php');
 require( 'helpers.php' ) ;
-$query = 'DELETE FROM inventory WHERE item_id = ' . '\'' . $_GET["item_id"] . '\'';
+$query = 'DELETE FROM users WHERE user_id = ' . '\'' . $_GET["id"] . '\'';
 $results = mysqli_query($dbc,$query) ;
-check_results($dbc,$results) ;
+check_results($dbc, $results) ;
+
 
 $query = 'SELECT user_id, pass, username FROM users WHERE user_id = 1';
 $results = mysqli_query($dbc,$query) ;

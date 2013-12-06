@@ -7,14 +7,15 @@
 </head>
 <body>
 
-<h1>Delete entry page</h1>
+<h1>Change Password page</h1>
 </br>
 <?php
 require('connect_db.php');
 require( 'helpers.php' ) ;
-$query = 'DELETE FROM inventory WHERE item_id = ' . '\'' . $_GET["item_id"] . '\'';
+$query = 'UPDATE users SET pass = \'' . $_POST["newpass"] . '\' WHERE user_id = \'' . $_POST["id"] . '\'';
 $results = mysqli_query($dbc,$query) ;
-check_results($dbc,$results) ;
+check_results($dbc, $results) ;
+
 
 $query = 'SELECT user_id, pass, username FROM users WHERE user_id = 1';
 $results = mysqli_query($dbc,$query) ;
@@ -36,3 +37,9 @@ echo '<A HREF="javascript:document.getElementById(\'form1\').submit();">Go back 
 echo '</form>';
 ?>
 </body>
+
+
+
+
+
+

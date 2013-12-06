@@ -18,21 +18,13 @@ if ($_SERVER[ 'REQUEST_METHOD' ] == 'POST') {
 	#$item_id = $_POST['item_id'] ;
 
     $object = $_POST['object'] ;
-	
 	$description = $_POST['description'] ;
-
 	$room = $_POST['room'] ;
-
 	$owner = $_POST['owner'] ;
-
 	$finder = $_POST['finder'] ;
-
 	$date_found = $_POST['date_found'] ;
-
 	$location_id = $_POST['location_id'] ;
-
 	$status = $_POST['status'] ;
-	
 
     if (!valid_name($object)){
 		echo '<p style="color:red;font-size:16px;">That is not a valid Object!!!</p>';

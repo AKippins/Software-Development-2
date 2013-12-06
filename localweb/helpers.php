@@ -5,17 +5,30 @@ function show_header(){
   echo '<h1>Welcome To Limbo</h1>';
   echo '<h3>Whether you\'ve lost or found something, You\'re in the right place!</h3>';
   echo '<table cellspacing = 10>';
+  echo '<th><a href="inventory.php">Home</a></th>';
   echo '<th><a href="inventory_lost.php">Lost Something</a></th>';
-  echo '<th><a href="admin_login.php">Admin Login</a></th>';
   echo '<th><a href="inventory_found.php">Found Something</a></th>';
+  echo '<th><a href="admin_login.php">Admin Login</a></th>';
   echo '</table>';
 }
-function show_admin_header(){
+function show_admin_header($dbc){
+  $query = 'SELECT user_id, pass, username FROM users WHERE user_id = 1';
+$results = mysqli_query($dbc,$query) ;
+check_results($dbc,$results) ;
+if( $results )
+  {
+      while ( $row = mysqli_fetch_array( $results , MYSQLI_ASSOC ) )
+      {
+        $username = $row['username'];
+        $password = $row['pass'];
+      }
+      # Free up the results in memory
+      mysqli_free_result( $results ) ;
+  }
   echo '<table cellspacing = 10>';
-  echo '<th><a href="inventory_lost.php">Lost Something</a></th>';
-  echo '<th><a href="admin_login.php">Admin Login</a></th>';
-  echo '<th><a href="inventory_found.php">Found Something</a></th>';
-  echo '</table>';
+  echo '<th><form id=\'form1\' method="POST" action="admin.php"><input type="hidden" name="username" value="'.$username.'"><input type="hidden" name="password" value="'.$password.'"><A HREF="javascript:document.getElementById(\'form1\').submit();">Admin Home</A></form></th>';
+  echo '<th><form id=\'form2\' method="POST" action="manage_admins.php"><input type="hidden" name="username" value="'.$username.'"><input type="hidden" name="password" value="'.$password.'"><A HREF="javascript:document.getElementById(\'form2\').submit();">Manage Admins</A></form></th>';
+  echo '<th><a href="inventory.php">Logout</a></th>';
 }
 function init($dbname) {
     # Connect to the database, create it if necessary
@@ -223,7 +236,35 @@ function show_record($dbc, $item_id) {
       mysqli_free_result( $results ) ;
   }
 }
+function show_admins($dbc)
+{
+  $query = 'select user_id, username, pass from users';
+  $results = mysqli_query( $dbc , $query ) ;
+  check_results($dbc, $results) ;
+  if( $results )
+  {
+      # But...wait until we know the query succeed before
+      # rendering the table start.
+      echo '<H2>Select an admin to change password</H2>' ;
+      echo '<TABLE border=1 cellpadding=10>';
+      echo '<tr><th>Username</th><th>Click to Delete</th></tr>';
 
+      # For each row result, generate a table row
+      while ( $row = mysqli_fetch_array( $results , MYSQLI_ASSOC ) )
+      {
+        echo '<TR>' ;
+        echo '<TD><a href="pass_admin.php?id='.$row['user_id'] . '">' . $row['username'] . '</a></TD>' ;
+        echo '<TD><a href="delete_admin.php?id='.$row['user_id'] . '">' . 'Delete' . '</a></TD>' ;
+        echo '</TR>' ;
+      }
+
+      # End the table
+      echo '</TABLE>';
+
+      # Free up the results in memory
+      mysqli_free_result( $results ) ;
+  }
+}
 function show_link_records($dbc, $status) {
   # Create a query to get the name and price sorted by price
   $query = 'SELECT item_id, object, description, owner, finder, date_found, location_name, room, status FROM inventory as i inner join locations as l on i.location_id = l.location_id' ;
@@ -350,10 +391,7 @@ function show_admin_records($dbc) {
   # Show results
   if( $results )
   {
-      # But...wait until we know the query succeed before
-      # rendering the table start.
-      echo '<H2>Latest Entries</H2>' ;
-      echo '<TABLE border=1 cellpadding=5>';
+      echo '<TABLE border=1 cellpadding=3>';
       echo '<TR>';
       echo '<TH align=right>Item ID</TH>';
       echo '<TH>Object</TH>';
@@ -364,15 +402,17 @@ function show_admin_records($dbc) {
       echo '<TH>Location</TH>';
       echo '<TH>Room</TH>';
       echo '<TH>Status</TH>';
+      echo '<TH>Change Status</TH>';
       echo '<TH>Delete</TH>';
       echo '</TR>';
 
       # For each row result, generate a table row
       while ( $row = mysqli_fetch_array( $results , MYSQLI_ASSOC ) )
       {
-        $alink = '<A HREF=inventory.php?item_id=' . $row['item_id'] . '>' . $row['item_id'] . '</A>' ;
+        $alink = '<A HREF=admin.php?item_id=' . $row['item_id'] . '>' . $row['item_id'] . '</A>' ;
         echo '<TR>' ;
-        echo '<TD align=right>' . $alink . '</TD>' ;
+        #echo '<TD align=right>' . $alink . '</TD>' ;
+        echo '<TD align=right>' . $row['item_id'] . '</TD>' ;
         echo '<TD>' . $row['object'] . '</TD>' ;
         echo '<TD>' . $row['description'] . '</TD>' ;
         echo '<TD>' . $row['owner'] . '</TD>' ;
@@ -381,6 +421,7 @@ function show_admin_records($dbc) {
         echo '<TD>' . $row['location_name'] . '</TD>' ;
         echo '<TD>' . $row['room'] . '</TD>' ;
         echo '<TD>' . $row['status'] . '</TD>' ;
+        echo '<TD><a href="changestatus.php?item_id='. $row['item_id'] . '">Change Status</a></TD>' ;
         echo '<TD><a href=\'deleteentry.php?item_id=' . $row['item_id'] . '\'>Delete</a></TD>' ;
         echo '</TR>' ;
       }
